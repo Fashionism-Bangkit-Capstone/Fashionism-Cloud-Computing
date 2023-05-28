@@ -22,6 +22,6 @@ db.sequelize = sequelize;
 
 // import models here
 db.user_account = require('./user_account.model')(sequelize, Sequelize);
-db.msmes_account = require('./msmes_account.model')(sequelize, Sequelize);
+db.msme_account = require('./msme_account.model')(sequelize, Sequelize);
 
 module.exports = db;

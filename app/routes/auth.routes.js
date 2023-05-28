@@ -28,18 +28,18 @@ module.exports = (app) => {
     controller.signin(db.user_account),
   );
 
-  // msmes account auth routes
+  // msme account auth routes
   router.post(
-    '/msmes/signup',
-    verifySignUp.checkDuplicateEmail(db.msmes_account),
+    '/msme/signup',
+    verifySignUp.checkDuplicateEmail(db.msme_account),
     authValidator.signup,
-    controller.signup(db.msmes_account),
+    controller.signup(db.msme_account),
   );
 
   router.post(
-    '/msmes/signin',
+    '/msme/signin',
     authValidator.signin,
-    controller.signin(db.msmes_account),
+    controller.signin(db.msme_account),
   );
 
   app.use('/api/v1/auth', router);
