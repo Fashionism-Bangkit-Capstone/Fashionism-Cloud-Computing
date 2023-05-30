@@ -1,5 +1,6 @@
 const { Storage } = require('@google-cloud/storage');
 const config = require('../config/google_cloud.config');
+const constants = require('../utils/constants.utils');
 
 const storage = new Storage({ keyFilename: config.keyFilename });
 const bucket = storage.bucket(config.bucketName);
@@ -23,8 +24,8 @@ exports.show = (model) => async (req, res) => {
         phone: profile.phone,
         address: profile.address,
         avatar: profile.avatar
-          ? `https://storage.googleapis.com/${config.bucketName}/avatars/${profile.avatar}`
-          : `https://storage.googleapis.com/${config.bucketName}/avatars/default/avatar.png`,
+          ? `${constants.bucketPublicUrl}/${config.bucketName}/${constants.avatarFolderName}/${profile.avatar}`
+          : `${constants.bucketPublicUrl}/${config.bucketName}/${constants.avatarFolderName}/default/avatar.png`,
       },
     });
   } catch (err) {
@@ -61,7 +62,7 @@ exports.update = (model) => async (req, res) => {
     );
 
     if (req.file) {
-      const folder = 'avatars/';
+      const folder = `${constants.avatarFolderName}/`;
       const ext = req.file.originalname.substring(
         req.file.originalname.lastIndexOf('.'),
         req.file.originalname.length,
