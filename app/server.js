@@ -12,12 +12,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const db = require('./models');
+const seed = require('./seeders');
 
 // in development, drop existing tables and re-sync database
 db.sequelize
   .sync({ force: true })
   .then(() => {
     console.log('Drop and re-sync db.');
+    seed();
   })
   .catch((err) => {
     console.log(`Failed to sync db: ${err.message}`);
@@ -38,6 +40,7 @@ app.get('/', (req, res) => {
 });
 
 require('./routes/auth.routes')(app);
+require('./routes/profile.routes')(app);
 
 app.all('*', (req, res) => {
   res.status(404).send({
