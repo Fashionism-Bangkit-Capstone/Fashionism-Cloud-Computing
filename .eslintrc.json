@@ -11,7 +11,12 @@
   },
   "rules": {
     "no-console": "off",
+    "eqeqeq": "off",
+    "consistent-return": "off",
     "operator-linebreak": "off",
-    "consistent-return": "off"
+    "object-curly-newline": "off",
+    "no-param-reassign": "off",
+    "implicit-arrow-linebreak": "off",
+    "function-paren-newline": "off"
   }
 }
