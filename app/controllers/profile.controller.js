@@ -1,7 +1,8 @@
 const { Storage } = require('@google-cloud/storage');
+const config = require('../config/google_cloud.config');
 
-const storage = new Storage({ keyFilename: 'google-cloud-key.json' });
-const bucket = storage.bucket('fashionism');
+const storage = new Storage({ keyFilename: config.keyFilename });
+const bucket = storage.bucket(config.bucketName);
 
 exports.show = (model) => async (req, res) => {
   const { id } = req.params;
@@ -22,8 +23,8 @@ exports.show = (model) => async (req, res) => {
         phone: profile.phone,
         address: profile.address,
         avatar: profile.avatar
-          ? `https://storage.googleapis.com/fashionism/avatars/${profile.avatar}`
-          : 'https://storage.googleapis.com/fashionism/avatars/default/avatar.png',
+          ? `https://storage.googleapis.com/${config.bucketName}/avatars/${profile.avatar}`
+          : `https://storage.googleapis.com/${config.bucketName}/avatars/default/avatar.png`,
       },
     });
   } catch (err) {
