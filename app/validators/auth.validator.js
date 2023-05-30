@@ -1,5 +1,5 @@
 const { body } = require('express-validator');
-const validationResultUtils = require('../utils/validation_result.utils');
+const formValidate = require('../utils/form_validate.utils');
 
 const signup = [
   body('name')
@@ -17,7 +17,7 @@ const signup = [
     .withMessage('Password cannot be empty.')
     .isLength({ min: 6 })
     .withMessage('Password must be at least 6 characters long.'),
-  validationResultUtils,
+  formValidate,
 ];
 
 const signin = [
@@ -27,7 +27,7 @@ const signin = [
     .isEmail()
     .withMessage('Email is not valid.'),
   body('password').notEmpty().withMessage('Password cannot be empty.'),
-  validationResultUtils,
+  formValidate,
 ];
 
 const authValidator = {

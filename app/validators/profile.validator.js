@@ -1,5 +1,5 @@
 const { body } = require('express-validator');
-const validationResultUtils = require('../utils/validation_result.utils');
+const formValidate = require('../utils/form_validate.utils');
 
 const update = [
   body('name')
@@ -12,7 +12,7 @@ const update = [
     .withMessage('Email cannot be empty.')
     .isEmail()
     .withMessage('Email is not valid.'),
-  validationResultUtils,
+  formValidate,
 ];
 
 const profileValidator = {
