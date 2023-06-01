@@ -5,6 +5,10 @@ const constants = require('../utils/constants.utils');
 const storage = new Storage({ keyFilename: config.keyFilename });
 const bucket = storage.bucket(config.bucketName);
 
+const db = require('../models');
+
+const { Op } = db.Sequelize;
+
 exports.show = (model) => async (req, res) => {
   const { id } = req.params;
 
@@ -45,6 +49,22 @@ exports.update = (model) => async (req, res) => {
 
     if (!profile) {
       return res.status(404).send({ error: true, message: 'Not found.' });
+    }
+
+    const emailExists = await model.findOne({
+      where: {
+        email,
+        id: {
+          [Op.ne]: id,
+        },
+      },
+    });
+
+    if (emailExists) {
+      return res.status(400).send({
+        error: true,
+        message: 'Failed! Email is already in use!',
+      });
     }
 
     await model.update(
