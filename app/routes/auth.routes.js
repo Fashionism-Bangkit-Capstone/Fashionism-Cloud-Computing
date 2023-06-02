@@ -2,6 +2,7 @@ const router = require('express').Router();
 const { verifySignUp } = require('../middleware');
 const { authValidator } = require('../validators');
 const controller = require('../controllers/auth.controller');
+const constants = require('../utils/constants.utils');
 
 const db = require('../models');
 
@@ -42,5 +43,5 @@ module.exports = (app) => {
     controller.signin(db.msme_account),
   );
 
-  app.use('/api/v1/auth', router);
+  app.use(`/api/${constants.apiVersion}/auth`, router);
 };

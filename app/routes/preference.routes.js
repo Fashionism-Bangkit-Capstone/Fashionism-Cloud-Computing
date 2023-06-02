@@ -2,6 +2,7 @@ const router = require('express').Router();
 const { authJwt } = require('../middleware');
 const { preferenceValidator } = require('../validators');
 const controller = require('../controllers/preference.controller');
+const constants = require('../utils/constants.utils');
 
 module.exports = (app) => {
   app.use((req, res, next) => {
@@ -34,5 +35,5 @@ module.exports = (app) => {
     controller.getUserAccountPreferences,
   );
 
-  app.use('/api/v1/preferences', router);
+  app.use(`/api/${constants.apiVersion}/preferences`, router);
 };

@@ -2,6 +2,7 @@ const router = require('express').Router();
 const { authJwt, processFile } = require('../middleware');
 const { profileValidator } = require('../validators');
 const controller = require('../controllers/profile.controller');
+const constants = require('../utils/constants.utils');
 
 const db = require('../models');
 
@@ -64,5 +65,5 @@ module.exports = (app) => {
     controller.update(db.msme_account),
   );
 
-  app.use('/api/v1/profile', router);
+  app.use(`/api/${constants.apiVersion}/profile`, router);
 };
