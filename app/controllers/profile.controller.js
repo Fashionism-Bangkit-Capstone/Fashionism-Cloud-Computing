@@ -22,7 +22,11 @@ exports.show = (model) => async (req, res) => {
     return res.status(200).send({
       error: false,
       data: {
-        ...profile.dataValues,
+        id: profile.id,
+        name: profile.name,
+        email: profile.email,
+        phone: profile.phone,
+        address: profile.address,
         avatar: profile.avatar
           ? `${constants.bucketPublicUrl}/${config.bucketName}/${constants.avatarFolderName}/${profile.avatar}`
           : `${constants.bucketPublicUrl}/${config.bucketName}/${constants.avatarFolderName}/default/avatar.png`,
