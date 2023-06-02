@@ -42,6 +42,7 @@ app.get('/', (req, res) => {
 require('./routes/auth.routes')(app);
 require('./routes/profile.routes')(app);
 require('./routes/preference.routes')(app);
+require('./routes/product.routes')(app);
 
 app.all('*', (req, res) => {
   res.status(404).send({
