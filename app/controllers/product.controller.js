@@ -84,6 +84,7 @@ exports.store = async (req, res) => {
 
     return res.status(201).send({
       error: false,
+      message: 'Product created successfully!',
       data: {
         ...product.dataValues,
         product_image: `${constants.bucketPublicUrl}/${config.bucketName}/${constants.productImageFolderName}/${product.product_image}`,
