@@ -1,4 +1,5 @@
 const { Storage } = require('@google-cloud/storage');
+const bcrypt = require('bcryptjs');
 const config = require('../config/google_cloud.config');
 const constants = require('../utils/constants.utils');
 
@@ -130,6 +131,50 @@ exports.update = (model) => async (req, res) => {
     return res.status(200).send({
       error: false,
       message: 'Profile updated successfully!',
+    });
+  } catch (err) {
+    return res.status(500).send({ error: true, message: err.message });
+  }
+};
+
+exports.changePassword = (model) => async (req, res) => {
+  const { id } = req.params;
+  const { old_password, new_password } = req.body;
+
+  try {
+    const profile = await model.findOne({
+      where: {
+        id,
+      },
+    });
+
+    if (!profile) {
+      return res.status(404).send({ error: true, message: 'Not found.' });
+    }
+
+    const passwordIsValid = bcrypt.compareSync(old_password, profile.password);
+
+    if (!passwordIsValid) {
+      return res.status(401).send({
+        error: true,
+        message: 'Failed! Old password is not correct!',
+      });
+    }
+
+    await model.update(
+      {
+        password: bcrypt.hashSync(new_password, 8),
+      },
+      {
+        where: {
+          id,
+        },
+      },
+    );
+
+    return res.status(200).send({
+      error: false,
+      message: 'Password changed successfully!',
     });
   } catch (err) {
     return res.status(500).send({ error: true, message: err.message });
