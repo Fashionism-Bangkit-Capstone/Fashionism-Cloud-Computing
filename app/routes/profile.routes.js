@@ -40,6 +40,13 @@ module.exports = (app) => {
     controller.update(db.user_account),
   );
 
+  router.put(
+    '/user/:id/change-password',
+    authJwt.verifyToken,
+    profileValidator.changePassword,
+    controller.changePassword(db.user_account),
+  );
+
   // msme profile routes
   router.get(
     '/msme/:id',
@@ -63,6 +70,13 @@ module.exports = (app) => {
     },
     profileValidator.update,
     controller.update(db.msme_account),
+  );
+
+  router.put(
+    '/msme/:id/change-password',
+    authJwt.verifyToken,
+    profileValidator.changePassword,
+    controller.changePassword(db.msme_account),
   );
 
   app.use(`/api/${constants.apiVersion}/profile`, router);
