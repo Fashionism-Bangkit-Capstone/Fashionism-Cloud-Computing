@@ -15,8 +15,25 @@ const update = [
   formValidate,
 ];
 
+const changePassword = [
+  body('old_password').notEmpty().withMessage('Old password cannot be empty.'),
+  body('new_password').notEmpty().withMessage('New password cannot be empty.'),
+  body('confirm_password')
+    .notEmpty()
+    .withMessage('Confirm password cannot be empty.')
+    .custom((value, { req }) => {
+      if (value !== req.body.new_password) {
+        throw new Error('Confirm password does not match!');
+      }
+
+      return true;
+    }),
+  formValidate,
+];
+
 const profileValidator = {
   update,
+  changePassword,
 };
 
 module.exports = profileValidator;
