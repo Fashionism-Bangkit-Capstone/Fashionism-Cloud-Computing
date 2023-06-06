@@ -51,4 +51,18 @@ db.product.belongsTo(db.msme_account, {
   foreignKey: 'msme_account_id',
 });
 
+db.user_account.belongsToMany(db.product, {
+  through: 'user_account_favorites',
+  as: 'favorites',
+  foreignKey: 'user_account_id',
+  otherKey: 'product_id',
+});
+
+db.product.belongsToMany(db.user_account, {
+  through: 'user_account_favorites',
+  as: 'user_accounts',
+  foreignKey: 'product_id',
+  otherKey: 'user_account_id',
+});
+
 module.exports = db;
