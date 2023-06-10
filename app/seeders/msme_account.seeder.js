@@ -10,6 +10,11 @@ const init = async () => {
     'EnduranceThreads Outlet',
   ];
 
+  await MsmeAccount.destroy({ where: {} });
+  await MsmeAccount.sequelize.query(
+    'ALTER TABLE msme_accounts AUTO_INCREMENT = 1',
+  );
+
   const msmeAccounts = msmeAccountNames.map((name) => ({
     name,
     email: `${name.replace(/\s/g, '').toLowerCase()}@mail.com`,

@@ -14,6 +14,7 @@ const init = async () => {
   await Product.destroy({
     where: {},
   });
+  await Product.sequelize.query('ALTER TABLE products AUTO_INCREMENT = 1');
 
   const [files] = await bucket.getFiles({
     prefix: `${constants.productImageFolderName}/`,
