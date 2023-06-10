@@ -7,6 +7,7 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   dialect: dbConfig.dialect,
   operatorsAliases: 0,
   timestamps: 0,
+  // logging: 0,
 
   pool: {
     max: dbConfig.pool.max,
