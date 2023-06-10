@@ -44,6 +44,7 @@ require('./routes/profile.routes')(app);
 require('./routes/preference.routes')(app);
 require('./routes/product.routes')(app);
 require('./routes/favorite.routes')(app);
+require('./routes/ml.routes')(app);
 
 app.all('*', (req, res) => {
   res.status(404).send({
