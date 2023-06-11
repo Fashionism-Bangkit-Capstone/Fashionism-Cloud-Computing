@@ -18,11 +18,14 @@ exports.index = async (req, res) => {
       },
     });
 
-    const results = products.map((product) => {
-      const result = product;
-      result.product_image = `${constants.bucketPublicUrl}/${config.bucketName}/${constants.productImageFolderName}/${product.product_image}`;
-      return result;
-    });
+    const results = products.map((product) => ({
+      id: product.id,
+      name: product.name,
+      description: product.description,
+      stock: product.stock,
+      price: `IDR ${product.price.toLocaleString()}`,
+      product_image: `${constants.bucketPublicUrl}/${config.bucketName}/${constants.productImageFolderName}/${product.product_image}`,
+    }));
 
     return res.status(200).send({
       error: false,
@@ -35,7 +38,7 @@ exports.index = async (req, res) => {
 
 exports.store = async (req, res) => {
   const { msme_account_id } = req.params;
-  const { name, description, stock, price } = req.body;
+  const { name, description, stock, price, type_id, category_id } = req.body;
 
   try {
     if (!req.file) {
@@ -79,6 +82,8 @@ exports.store = async (req, res) => {
       stock,
       price,
       msme_account_id,
+      type_id,
+      category_id,
       product_image: fileName,
     });
 
@@ -86,7 +91,11 @@ exports.store = async (req, res) => {
       error: false,
       message: 'Product created successfully!',
       data: {
-        ...product.dataValues,
+        id: product.id,
+        name: product.name,
+        description: product.description,
+        stock: product.stock,
+        price: `IDR ${product.price.toLocaleString()}`,
         product_image: `${constants.bucketPublicUrl}/${config.bucketName}/${constants.productImageFolderName}/${product.product_image}`,
       },
     });
@@ -113,7 +122,11 @@ exports.show = async (req, res) => {
     return res.status(200).send({
       error: false,
       data: {
-        ...product.dataValues,
+        id: product.id,
+        name: product.name,
+        description: product.description,
+        stock: product.stock,
+        price: `IDR ${product.price.toLocaleString()}`,
         product_image: `${constants.bucketPublicUrl}/${config.bucketName}/${constants.productImageFolderName}/${product.product_image}`,
       },
     });
@@ -124,7 +137,7 @@ exports.show = async (req, res) => {
 
 exports.update = async (req, res) => {
   const { msme_account_id, id } = req.params;
-  const { name, description, stock, price } = req.body;
+  const { name, description, stock, price, type_id, category_id } = req.body;
 
   try {
     const product = await Product.findOne({
@@ -143,6 +156,8 @@ exports.update = async (req, res) => {
       description,
       stock,
       price,
+      type_id,
+      category_id,
     });
 
     if (req.file) {
@@ -227,6 +242,177 @@ exports.destroy = async (req, res) => {
     return res.status(200).send({
       error: false,
       message: 'Product deleted successfully!',
+    });
+  } catch (err) {
+    return res.status(500).send({ error: true, message: err.message });
+  }
+};
+
+exports.getTotalProducts = async (req, res) => {
+  const { msme_account_id } = req.params;
+
+  try {
+    const totalProducts = await Product.count({
+      where: {
+        msme_account_id,
+      },
+    });
+
+    return res.status(200).send({
+      error: false,
+      data: {
+        total_products: totalProducts,
+      },
+    });
+  } catch (err) {
+    return res.status(500).send({ error: true, message: err.message });
+  }
+};
+
+exports.getRecentProducts = async (req, res) => {
+  const { msme_account_id } = req.params;
+
+  try {
+    const recentProducts = await Product.count({
+      where: {
+        msme_account_id,
+        created_at: {
+          [db.Sequelize.Op.gte]: new Date(
+            new Date().setDate(new Date().getDate() - 1),
+          ),
+        },
+      },
+    });
+
+    return res.status(200).send({
+      error: false,
+      data: {
+        recent_products: recentProducts,
+      },
+    });
+  } catch (err) {
+    return res.status(500).send({ error: true, message: err.message });
+  }
+};
+
+exports.getProductsByType = async (req, res) => {
+  const { msme_account_id, type_id } = req.params;
+
+  try {
+    const products = await Product.findAll({
+      where: {
+        msme_account_id,
+        type_id,
+      },
+    });
+
+    if (!products) {
+      return res.status(404).send({ error: true, message: 'Not found.' });
+    }
+
+    const results = products.map((product) => ({
+      id: product.id,
+      name: product.name,
+      description: product.description,
+      stock: product.stock,
+      price: `IDR ${product.price.toLocaleString()}`,
+      product_image: `${constants.bucketPublicUrl}/${config.bucketName}/${constants.productImageFolderName}/${product.product_image}`,
+    }));
+
+    return res.status(200).send({
+      error: false,
+      data: results,
+    });
+  } catch (err) {
+    return res.status(500).send({ error: true, message: err.message });
+  }
+};
+
+exports.getProductsByCategory = async (req, res) => {
+  const { msme_account_id, category_id } = req.params;
+
+  try {
+    const products = await Product.findAll({
+      where: {
+        msme_account_id,
+        category_id,
+      },
+    });
+
+    if (!products) {
+      return res.status(404).send({ error: true, message: 'Not found.' });
+    }
+
+    const results = products.map((product) => ({
+      id: product.id,
+      name: product.name,
+      description: product.description,
+      stock: product.stock,
+      price: `IDR ${product.price.toLocaleString()}`,
+      product_image: `${constants.bucketPublicUrl}/${config.bucketName}/${constants.productImageFolderName}/${product.product_image}`,
+    }));
+
+    return res.status(200).send({
+      error: false,
+      data: results,
+    });
+  } catch (err) {
+    return res.status(500).send({ error: true, message: err.message });
+  }
+};
+
+exports.getProductsByCategoryOnUser = async (req, res) => {
+  const { category_id } = req.params;
+
+  try {
+    const products = await Product.findAll({
+      where: {
+        category_id,
+      },
+    });
+
+    if (!products) {
+      return res.status(404).send({ error: true, message: 'Not found.' });
+    }
+
+    const results = products.map((product) => ({
+      id: product.id,
+      name: product.name,
+      description: product.description,
+      stock: product.stock,
+      price: `IDR ${product.price.toLocaleString()}`,
+      product_image: `${constants.bucketPublicUrl}/${config.bucketName}/${constants.productImageFolderName}/${product.product_image}`,
+    }));
+
+    return res.status(200).send({
+      error: false,
+      data: results,
+    });
+  } catch (err) {
+    return res.status(500).send({ error: true, message: err.message });
+  }
+};
+
+exports.getProductOnUser = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const product = await Product.findByPk(id);
+
+    if (!product) {
+      return res.status(404).send({ error: true, message: 'Not found.' });
+    }
+
+    return res.status(200).send({
+      error: false,
+      data: {
+        id: product.id,
+        name: product.name,
+        description: product.description,
+        stock: product.stock,
+        price: `IDR ${product.price.toLocaleString()}`,
+        product_image: `${constants.bucketPublicUrl}/${config.bucketName}/${constants.productImageFolderName}/${product.product_image}`,
+      },
     });
   } catch (err) {
     return res.status(500).send({ error: true, message: err.message });
