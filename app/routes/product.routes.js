@@ -33,6 +33,7 @@ module.exports = (app) => {
     controller.store,
   );
   router.get('/:msme_account_id/:id', authJwt.verifyToken, controller.show);
+
   router.put(
     '/:msme_account_id/:id',
     authJwt.verifyToken,
@@ -54,6 +55,42 @@ module.exports = (app) => {
     '/:msme_account_id/:id',
     authJwt.verifyToken,
     controller.destroy,
+  );
+
+  app.get(
+    `/api/${constants.apiVersion}/product/total/:msme_account_id`,
+    authJwt.verifyToken,
+    controller.getTotalProducts,
+  );
+
+  app.get(
+    `/api/${constants.apiVersion}/product/recent/:msme_account_id`,
+    authJwt.verifyToken,
+    controller.getRecentProducts,
+  );
+
+  app.get(
+    `/api/${constants.apiVersion}/product/:msme_account_id/type/:type_id`,
+    authJwt.verifyToken,
+    controller.getProductsByType,
+  );
+
+  app.get(
+    `/api/${constants.apiVersion}/product/:msme_account_id/category/:category_id`,
+    authJwt.verifyToken,
+    controller.getProductsByCategory,
+  );
+
+  app.get(
+    `/api/${constants.apiVersion}/product/category/:category_id`,
+    authJwt.verifyToken,
+    controller.getProductsByCategoryOnUser,
+  );
+
+  app.get(
+    `/api/${constants.apiVersion}/product/:id`,
+    authJwt.verifyToken,
+    controller.getProductOnUser,
   );
 
   app.use(`/api/${constants.apiVersion}/product`, router);
