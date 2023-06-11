@@ -16,6 +16,16 @@ const store = [
     .withMessage('Product price cannot be empty.')
     .isInt()
     .withMessage('Product price must be a number.'),
+  body('type_id')
+    .notEmpty()
+    .withMessage('Product type cannot be empty.')
+    .isInt()
+    .withMessage('Product type must be a number.'),
+  body('category_id')
+    .notEmpty()
+    .withMessage('Product category cannot be empty.')
+    .isInt()
+    .withMessage('Product category must be a number.'),
   formValidate,
 ];
 
@@ -34,6 +44,16 @@ const update = [
     .withMessage('Product price cannot be empty.')
     .isInt()
     .withMessage('Product price must be a number.'),
+  body('type_id')
+    .notEmpty()
+    .withMessage('Product type cannot be empty.')
+    .isInt()
+    .withMessage('Product type must be a number.'),
+  body('category_id')
+    .notEmpty()
+    .withMessage('Product category cannot be empty.')
+    .isInt()
+    .withMessage('Product category must be a number.'),
   formValidate,
 ];
 
