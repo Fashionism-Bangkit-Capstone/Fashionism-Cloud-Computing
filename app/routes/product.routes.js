@@ -88,7 +88,7 @@ module.exports = (app) => {
   );
 
   app.get(
-    `/api/${constants.apiVersion}/product/:id`,
+    `/api/${constants.apiVersion}/product/get/:id`,
     authJwt.verifyToken,
     controller.getProductOnUser,
   );
