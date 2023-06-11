@@ -41,7 +41,8 @@ app.get('/', (req, res) => {
 
 require('./routes/auth.routes')(app);
 require('./routes/profile.routes')(app);
-require('./routes/preference.routes')(app);
+require('./routes/type.routes')(app);
+require('./routes/category.routes')(app);
 require('./routes/product.routes')(app);
 require('./routes/favorite.routes')(app);
 require('./routes/ml.routes')(app);
