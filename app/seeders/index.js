@@ -1,10 +1,12 @@
-const preferenceSeeder = require('./preference.seeder');
 const msmeAccountSeeder = require('./msme_account.seeder');
+const typeSeeder = require('./type.seeder');
+const categorySeeder = require('./category.seeder');
 const productSeeder = require('./product.seeder');
 
 const init = async () => {
-  await preferenceSeeder();
   await msmeAccountSeeder();
+  await typeSeeder();
+  await categorySeeder();
   await productSeeder();
 };
 

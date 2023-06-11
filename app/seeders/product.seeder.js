@@ -67,6 +67,8 @@ const init = async () => {
         price: product.price,
         product_image: fileName,
         msme_account_id: product.msme_account_id,
+        type_id: product.type_id,
+        category_id: product.category_id,
       });
     }),
   );
