@@ -21,7 +21,11 @@ exports.index = async (req, res) => {
     res.status(200).send({
       error: false,
       data: products.map((product) => ({
-        ...product.dataValues,
+        id: product.id,
+        name: product.name,
+        description: product.description,
+        stock: product.stock,
+        price: product.price,
         product_image: `${constants.bucketPublicUrl}/${config.bucketName}/${constants.productImageFolderName}/${product.product_image}`,
       })),
     });
