@@ -1,6 +1,6 @@
 module.exports = (sequelize, Sequelize) => {
   const Product = sequelize.define(
-    'product',
+    'products',
     {
       name: {
         type: Sequelize.STRING,
@@ -24,7 +24,7 @@ module.exports = (sequelize, Sequelize) => {
       },
     },
     {
-      timestamps: false,
+      underscored: true,
     },
   );
 

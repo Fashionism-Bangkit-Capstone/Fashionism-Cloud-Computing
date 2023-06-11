@@ -1,6 +1,6 @@
 module.exports = (sequelize, Sequelize) => {
   const UserAccount = sequelize.define(
-    'user_account',
+    'user_accounts',
     {
       name: {
         type: Sequelize.STRING,
@@ -28,7 +28,7 @@ module.exports = (sequelize, Sequelize) => {
       },
     },
     {
-      timestamps: false,
+      underscored: true,
     },
   );
 
