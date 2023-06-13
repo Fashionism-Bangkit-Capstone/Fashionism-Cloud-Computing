@@ -128,6 +128,8 @@ exports.show = async (req, res) => {
         stock: product.stock,
         price: `IDR ${product.price.toLocaleString()}`,
         product_image: `${constants.bucketPublicUrl}/${config.bucketName}/${constants.productImageFolderName}/${product.product_image}`,
+        type_id: product.type_id,
+        category_id: product.category_id,
       },
     });
   } catch (err) {
