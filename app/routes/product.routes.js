@@ -93,5 +93,11 @@ module.exports = (app) => {
     controller.getProductOnUser,
   );
 
+  app.get(
+    `/api/${constants.apiVersion}/product/all`,
+    authJwt.verifyToken,
+    controller.getAllProductsOnUser,
+  );
+
   app.use(`/api/${constants.apiVersion}/product`, router);
 };

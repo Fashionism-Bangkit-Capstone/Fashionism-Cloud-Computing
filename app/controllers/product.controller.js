@@ -25,6 +25,8 @@ exports.index = async (req, res) => {
       stock: product.stock,
       price: `IDR ${product.price.toLocaleString()}`,
       product_image: `${constants.bucketPublicUrl}/${config.bucketName}/${constants.productImageFolderName}/${product.product_image}`,
+      type_id: product.type_id,
+      category_id: product.category_id,
     }));
 
     return res.status(200).send({
@@ -97,6 +99,8 @@ exports.store = async (req, res) => {
         stock: product.stock,
         price: `IDR ${product.price.toLocaleString()}`,
         product_image: `${constants.bucketPublicUrl}/${config.bucketName}/${constants.productImageFolderName}/${product.product_image}`,
+        type_id: product.type_id,
+        category_id: product.category_id,
       },
     });
   } catch (err) {
@@ -319,6 +323,8 @@ exports.getProductsByType = async (req, res) => {
       stock: product.stock,
       price: `IDR ${product.price.toLocaleString()}`,
       product_image: `${constants.bucketPublicUrl}/${config.bucketName}/${constants.productImageFolderName}/${product.product_image}`,
+      type_id: product.type_id,
+      category_id: product.category_id,
     }));
 
     return res.status(200).send({
@@ -352,6 +358,8 @@ exports.getProductsByCategory = async (req, res) => {
       stock: product.stock,
       price: `IDR ${product.price.toLocaleString()}`,
       product_image: `${constants.bucketPublicUrl}/${config.bucketName}/${constants.productImageFolderName}/${product.product_image}`,
+      type_id: product.type_id,
+      category_id: product.category_id,
     }));
 
     return res.status(200).send({
@@ -384,6 +392,7 @@ exports.getProductsByCategoryOnUser = async (req, res) => {
       stock: product.stock,
       price: `IDR ${product.price.toLocaleString()}`,
       product_image: `${constants.bucketPublicUrl}/${config.bucketName}/${constants.productImageFolderName}/${product.product_image}`,
+      category_id: product.category_id,
     }));
 
     return res.status(200).send({
@@ -414,7 +423,35 @@ exports.getProductOnUser = async (req, res) => {
         stock: product.stock,
         price: `IDR ${product.price.toLocaleString()}`,
         product_image: `${constants.bucketPublicUrl}/${config.bucketName}/${constants.productImageFolderName}/${product.product_image}`,
+        category_id: product.category_id,
       },
+    });
+  } catch (err) {
+    return res.status(500).send({ error: true, message: err.message });
+  }
+};
+
+exports.getAllProductsOnUser = async (req, res) => {
+  try {
+    const products = await Product.findAll();
+
+    if (!products) {
+      return res.status(404).send({ error: true, message: 'Not found.' });
+    }
+
+    const results = products.map((product) => ({
+      id: product.id,
+      name: product.name,
+      description: product.description,
+      stock: product.stock,
+      price: `IDR ${product.price.toLocaleString()}`,
+      product_image: `${constants.bucketPublicUrl}/${config.bucketName}/${constants.productImageFolderName}/${product.product_image}`,
+      category_id: product.category_id,
+    }));
+
+    return res.status(200).send({
+      error: false,
+      data: results,
     });
   } catch (err) {
     return res.status(500).send({ error: true, message: err.message });
