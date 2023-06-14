@@ -93,3 +93,42 @@ exports.removeFavorite = async (req, res) => {
     return res.status(500).send({ error: true, message: err.message });
   }
 };
+
+// check if product is in favorites
+exports.isFavorite = async (req, res) => {
+  const { user_account_id, product_id } = req.params;
+
+  try {
+    const userAccount = await UserAccount.findByPk(user_account_id);
+    if (!userAccount) {
+      return res.status(404).send({
+        error: true,
+        message: `User account with id ${user_account_id} not found`,
+      });
+    }
+
+    const product = await Product.findByPk(product_id);
+    if (!product) {
+      return res.status(404).send({
+        error: true,
+        message: `Product with id ${product_id} not found`,
+      });
+    }
+
+    const isFavorite = await userAccount.hasFavorite(product);
+
+    if (!isFavorite) {
+      return res.status(404).send({
+        error: true,
+        data: isFavorite,
+      });
+    }
+
+    res.status(200).send({
+      error: false,
+      data: isFavorite,
+    });
+  } catch (err) {
+    return res.status(500).send({ error: true, message: err.message });
+  }
+};

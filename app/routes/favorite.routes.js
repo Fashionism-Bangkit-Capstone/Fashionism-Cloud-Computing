@@ -27,5 +27,12 @@ module.exports = (app) => {
     controller.removeFavorite,
   );
 
+  // check if product is in favorites
+  router.get(
+    '/:user_account_id/:product_id',
+    authJwt.verifyToken,
+    controller.isFavorite,
+  );
+
   app.use(`/api/${constants.apiVersion}/favorites`, router);
 };
