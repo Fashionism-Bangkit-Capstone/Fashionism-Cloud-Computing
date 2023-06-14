@@ -13,6 +13,7 @@ module.exports = (app) => {
   });
 
   router.get('/', authJwt.verifyToken, controller.index);
+  router.get('/:id', authJwt.verifyToken, controller.show);
 
   app.use(`/api/${constants.apiVersion}/category`, router);
 };
