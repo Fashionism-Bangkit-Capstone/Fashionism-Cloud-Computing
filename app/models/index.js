@@ -70,4 +70,10 @@ db.product.belongsToMany(db.user_account, {
   otherKey: 'user_account_id',
 });
 
+// custom methods
+db.getMsmeName = async (msmeAccountId) => {
+  const msmeAccount = await db.msme_account.findByPk(msmeAccountId);
+  return msmeAccount.name;
+};
+
 module.exports = db;
