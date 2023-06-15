@@ -18,16 +18,26 @@ exports.index = async (req, res) => {
     }
 
     const products = await userAccount.getFavorites();
+
+    const results = await Promise.all(
+      products.map(async (product) => {
+        const msmeName = await db.getMsmeName(product.msme_account_id);
+        return {
+          id: product.id,
+          name: product.name,
+          description: product.description,
+          stock: product.stock,
+          price: `IDR ${product.price.toLocaleString()}`,
+          product_image: `${constants.bucketPublicUrl}/${config.bucketName}/${constants.productImageFolderName}/${product.product_image}`,
+          category_id: product.category_id,
+          msme_name: msmeName,
+        };
+      }),
+    );
+
     res.status(200).send({
       error: false,
-      data: products.map((product) => ({
-        id: product.id,
-        name: product.name,
-        description: product.description,
-        stock: product.stock,
-        price: product.price,
-        product_image: `${constants.bucketPublicUrl}/${config.bucketName}/${constants.productImageFolderName}/${product.product_image}`,
-      })),
+      data: results,
     });
   } catch (err) {
     return res.status(500).send({ error: true, message: err.message });
@@ -94,7 +104,6 @@ exports.removeFavorite = async (req, res) => {
   }
 };
 
-// check if product is in favorites
 exports.isFavorite = async (req, res) => {
   const { user_account_id, product_id } = req.params;
 
