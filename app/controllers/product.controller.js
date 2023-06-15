@@ -472,3 +472,36 @@ exports.getAllProductsOnUser = async (req, res) => {
     return res.status(500).send({ error: true, message: err.message });
   }
 };
+
+exports.getMostProductYouLikeOnUser = async (req, res) => {
+  try {
+    const products = await db.randomizeProducts();
+
+    if (!products) {
+      return res.status(404).send({ error: true, message: 'Not found.' });
+    }
+
+    const results = await Promise.all(
+      products.map(async (product) => {
+        const msmeName = await db.getMsmeName(product.msme_account_id);
+        return {
+          id: product.id,
+          name: product.name,
+          description: product.description,
+          stock: product.stock,
+          price: `IDR ${product.price.toLocaleString()}`,
+          product_image: `${constants.bucketPublicUrl}/${config.bucketName}/${constants.productImageFolderName}/${product.product_image}`,
+          category_id: product.category_id,
+          msme_name: msmeName,
+        };
+      }),
+    );
+
+    return res.status(200).send({
+      error: false,
+      data: results,
+    });
+  } catch (err) {
+    return res.status(500).send({ error: true, message: err.message });
+  }
+};

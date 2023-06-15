@@ -76,4 +76,12 @@ db.getMsmeName = async (msmeAccountId) => {
   return msmeAccount.name;
 };
 
+db.randomizeProducts = async () => {
+  const products = await db.product.findAll({
+    order: Sequelize.literal('rand()'),
+    limit: 5,
+  });
+  return products;
+};
+
 module.exports = db;

@@ -99,5 +99,11 @@ module.exports = (app) => {
     controller.getAllProductsOnUser,
   );
 
+  app.get(
+    `/api/${constants.apiVersion}/product/most-product-you-like`,
+    authJwt.verifyToken,
+    controller.getMostProductYouLikeOnUser,
+  );
+
   app.use(`/api/${constants.apiVersion}/product`, router);
 };
