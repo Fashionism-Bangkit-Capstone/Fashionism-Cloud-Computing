@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
+const swaggerUi = require('swagger-ui-express');
 const env = require('./utils/env.utils');
+const swaggerFile = require('./swagger_output.json');
 
 const app = express();
 
@@ -38,6 +40,8 @@ db.sequelize
 app.get('/', (req, res) => {
   res.json({ message: 'Welcome to the Fashionism API' });
 });
+
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 require('./routes/auth.routes')(app);
 require('./routes/profile.routes')(app);

@@ -1,0 +1,1393 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "2.0.0",
+    "title": "Fashionism API",
+    "description": "Fashionism API designed exclusively for our internal team. Data access related to product data, authentication, and much more. This documentation serves as a comprehensive guide for seamless integration and utilization of the Fashionism API in our internal applications."
+  },
+  "host": "localhost:8080/api/v2",
+  "basePath": "/",
+  "schemes": ["http"],
+  "paths": {
+    "/auth/user/signup": {
+      "post": {
+        "tags": ["auth"],
+        "description": "Endpoint for user signup",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "example": "user@mail.com"
+                },
+                "name": {
+                  "example": "User"
+                },
+                "password": {
+                  "example": "password"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/auth/user/signin": {
+      "post": {
+        "tags": ["auth"],
+        "description": "Endpoint for user signin",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "example": "user@mail.com"
+                },
+                "password": {
+                  "example": "password"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "User Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/auth/msme/signup": {
+      "post": {
+        "tags": ["auth"],
+        "description": "Endpoint for msme signup",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "example": "msme@mail.com"
+                },
+                "name": {
+                  "example": "Msme"
+                },
+                "password": {
+                  "example": "password"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/auth/msme/signin": {
+      "post": {
+        "tags": ["auth"],
+        "description": "Endpoint for msme signin",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "example": "msme@mail.com"
+                },
+                "password": {
+                  "example": "password"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/category": {
+      "get": {
+        "tags": ["category"],
+        "description": "Endpoint for get all category",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "Bearer {access_token}",
+            "value": "Bearer {access_token}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/category/{id}": {
+      "get": {
+        "tags": ["category"],
+        "description": "Endpoint for get category by id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "Bearer {access_token}",
+            "value": "Bearer {access_token}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/favorites/{user_account_id}": {
+      "get": {
+        "tags": ["favorites"],
+        "description": "Endpoint for get all favorites by user account id",
+        "parameters": [
+          {
+            "name": "user_account_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "Bearer {access_token}",
+            "value": "Bearer {access_token}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/favorites/add": {
+      "post": {
+        "tags": ["favorites"],
+        "description": "Endpoint for add favorites",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "Bearer {access_token}",
+            "value": "Bearer {access_token}"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user_account_id": {
+                  "example": "user_account_id"
+                },
+                "product_id": {
+                  "example": "product_id"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/favorites/remove": {
+      "post": {
+        "tags": ["favorites"],
+        "description": "Endpoint for remove favorites",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "Bearer {access_token}",
+            "value": "Bearer {access_token}"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user_account_id": {
+                  "example": "user_account_id"
+                },
+                "product_id": {
+                  "example": "product_id"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/favorites/{user_account_id}/{product_id}": {
+      "get": {
+        "tags": ["favorites"],
+        "description": "Endpoint for check favorites by user account id and product id",
+        "parameters": [
+          {
+            "name": "user_account_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "product_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "Bearer {access_token}",
+            "value": "Bearer {access_token}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/ml/products": {
+      "get": {
+        "tags": ["ml"],
+        "description": "Endpoint for get all products from ml",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/product/{msme_account_id}": {
+      "get": {
+        "tags": ["product"],
+        "description": "Endpoint for get all product by msme account id",
+        "parameters": [
+          {
+            "name": "msme_account_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "Bearer {access_token}",
+            "value": "Bearer {access_token}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": ["product"],
+        "description": "Endpoint for add product by msme account id",
+        "consumes": ["multipart/form-data"],
+        "parameters": [
+          {
+            "name": "msme_account_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "Bearer {access_token}",
+            "value": "Bearer {access_token}"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "type": "string",
+            "description": "Product Name",
+            "required": true,
+            "value": "Product Name"
+          },
+          {
+            "name": "description",
+            "in": "formData",
+            "type": "string",
+            "description": "Product Description",
+            "required": true,
+            "value": "Product Description"
+          },
+          {
+            "name": "stock",
+            "in": "formData",
+            "type": "string",
+            "description": "Product Stock (number)",
+            "required": true,
+            "value": "10"
+          },
+          {
+            "name": "price",
+            "in": "formData",
+            "type": "string",
+            "description": "Product Price (number)",
+            "required": true,
+            "value": "100000"
+          },
+          {
+            "name": "type_id",
+            "in": "formData",
+            "type": "string",
+            "description": "Product Type (number)",
+            "required": true,
+            "value": "1"
+          },
+          {
+            "name": "category_id",
+            "in": "formData",
+            "type": "string",
+            "description": "Product Category (number)",
+            "required": true,
+            "value": "1"
+          },
+          {
+            "name": "product_image",
+            "in": "formData",
+            "type": "file",
+            "description": "Product Image",
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/product/{msme_account_id}/{id}": {
+      "get": {
+        "tags": ["product"],
+        "description": "Endpoint for get product by msme account id and product id",
+        "parameters": [
+          {
+            "name": "msme_account_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "Bearer {access_token}",
+            "value": "Bearer {access_token}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": ["product"],
+        "description": "Endpoint for update product by msme account id and product id",
+        "consumes": ["multipart/form-data"],
+        "parameters": [
+          {
+            "name": "msme_account_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "Bearer {access_token}",
+            "value": "Bearer {access_token}"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "type": "string",
+            "description": "Product Name",
+            "required": true,
+            "value": "Product Name Updated"
+          },
+          {
+            "name": "description",
+            "in": "formData",
+            "type": "string",
+            "description": "Product Description",
+            "required": true,
+            "value": "Product Description Updated"
+          },
+          {
+            "name": "stock",
+            "in": "formData",
+            "type": "string",
+            "description": "Product Stock (number)",
+            "required": true,
+            "value": "20"
+          },
+          {
+            "name": "price",
+            "in": "formData",
+            "type": "string",
+            "description": "Product Price (number)",
+            "required": true,
+            "value": "200000"
+          },
+          {
+            "name": "type_id",
+            "in": "formData",
+            "type": "string",
+            "description": "Product Type (number)",
+            "required": true,
+            "value": "2"
+          },
+          {
+            "name": "category_id",
+            "in": "formData",
+            "type": "string",
+            "description": "Product Category (number)",
+            "required": true,
+            "value": "2"
+          },
+          {
+            "name": "product_image",
+            "in": "formData",
+            "type": "file",
+            "description": "Product Image"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["product"],
+        "description": "Endpoint for delete product by msme account id and product id",
+        "parameters": [
+          {
+            "name": "msme_account_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "Bearer {access_token}",
+            "value": "Bearer {access_token}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/product/total/{msme_account_id}": {
+      "get": {
+        "tags": ["product"],
+        "description": "Endpoint for get total product by msme account id",
+        "parameters": [
+          {
+            "name": "msme_account_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "Bearer {access_token}",
+            "value": "Bearer {access_token}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/product/recent/{msme_account_id}": {
+      "get": {
+        "tags": ["product"],
+        "description": "Endpoint for get total recent product by msme account id",
+        "parameters": [
+          {
+            "name": "msme_account_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "Bearer {access_token}",
+            "value": "Bearer {access_token}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/product/{msme_account_id}/type/{type_id}": {
+      "get": {
+        "tags": ["product"],
+        "description": "Endpoint for filter product by msme account id and type id",
+        "parameters": [
+          {
+            "name": "msme_account_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "type_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "Bearer {access_token}",
+            "value": "Bearer {access_token}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/product/{msme_account_id}/category/{category_id}": {
+      "get": {
+        "tags": ["product"],
+        "description": "Endpoint for filter product by msme account id and category id",
+        "parameters": [
+          {
+            "name": "msme_account_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "category_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "Bearer {access_token}",
+            "value": "Bearer {access_token}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/product/category/{category_id}": {
+      "get": {
+        "tags": ["product"],
+        "description": "Endpoint for filter product by category id from user",
+        "parameters": [
+          {
+            "name": "category_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "Bearer {access_token}",
+            "value": "Bearer {access_token}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/product/get/{id}": {
+      "get": {
+        "tags": ["product"],
+        "description": "Endpoint for get specific product from user",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "Bearer {access_token}",
+            "value": "Bearer {access_token}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/product/all": {
+      "get": {
+        "tags": ["product"],
+        "description": "Endpoint for get all products from user",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "Bearer {access_token}",
+            "value": "Bearer {access_token}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/product/most-product-you-like": {
+      "get": {
+        "tags": ["product"],
+        "description": "Endpoint for get product most product you like from user",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "Bearer {access_token}",
+            "value": "Bearer {access_token}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/profile/user/{id}": {
+      "get": {
+        "tags": ["profile"],
+        "description": "Endpoint for get profile by user id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "Bearer {access_token}",
+            "value": "Bearer {access_token}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": ["profile"],
+        "description": "Endpoint for update profile by user id",
+        "consumes": ["multipart/form-data"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "Bearer {access_token}",
+            "value": "Bearer {access_token}"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "type": "string",
+            "description": "User Name",
+            "required": true,
+            "value": "User Updated"
+          },
+          {
+            "name": "email",
+            "in": "formData",
+            "type": "string",
+            "description": "User Email",
+            "required": true,
+            "value": "userupdated@mail.com"
+          },
+          {
+            "name": "phone",
+            "in": "formData",
+            "type": "string",
+            "description": "User Phone",
+            "required": true,
+            "value": "081234567890"
+          },
+          {
+            "name": "address",
+            "in": "formData",
+            "type": "string",
+            "description": "User Address",
+            "required": true,
+            "value": "User Address Updated"
+          },
+          {
+            "name": "avatar",
+            "in": "formData",
+            "type": "file",
+            "description": "User Avatar"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/profile/user/{id}/change-password": {
+      "put": {
+        "tags": ["setting"],
+        "description": "Endpoint for change password by user id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "Bearer {access_token}",
+            "value": "Bearer {access_token}"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "old_password": {
+                  "example": "password"
+                },
+                "new_password": {
+                  "example": "pass"
+                },
+                "confirm_password": {
+                  "example": "pass"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/profile/msme/{id}": {
+      "get": {
+        "tags": ["profile"],
+        "description": "Endpoint for get profile by msme id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "Bearer {access_token}",
+            "value": "Bearer {access_token}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": ["profile"],
+        "description": "Endpoint for update profile by msme id",
+        "consumes": ["multipart/form-data"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "Bearer {access_token}",
+            "value": "Bearer {access_token}"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "type": "string",
+            "description": "Msme Name",
+            "required": true,
+            "value": "Msme Updated"
+          },
+          {
+            "name": "email",
+            "in": "formData",
+            "type": "string",
+            "description": "Msme Email",
+            "required": true,
+            "value": "msmeupdated@mail.com"
+          },
+          {
+            "name": "phone",
+            "in": "formData",
+            "type": "string",
+            "description": "User Phone",
+            "required": true,
+            "value": "081234567890"
+          },
+          {
+            "name": "address",
+            "in": "formData",
+            "type": "string",
+            "description": "Msme Address",
+            "required": true,
+            "value": "Msme Address Updated"
+          },
+          {
+            "name": "avatar",
+            "in": "formData",
+            "type": "file",
+            "description": "User Avatar"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/profile/msme/{id}/change-password": {
+      "put": {
+        "tags": ["setting"],
+        "description": "Endpoint for change password by msme id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "Bearer {access_token}",
+            "value": "Bearer {access_token}"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "old_password": {
+                  "example": "password"
+                },
+                "new_password": {
+                  "example": "pass"
+                },
+                "confirm_password": {
+                  "example": "pass"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  }
+}
