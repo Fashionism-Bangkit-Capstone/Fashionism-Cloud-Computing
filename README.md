@@ -10,6 +10,8 @@ Fashionism API designed exclusively for our internal team. Data access related t
 - [x] Profile
   - [x] Get Profile
   - [x] Update Profile
+- [x] Setting
+  - [x] Change Password
 - [x] Product CRUD
   - [x] Get Product
   - [x] Get Products
