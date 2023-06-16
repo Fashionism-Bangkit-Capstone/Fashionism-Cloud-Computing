@@ -82,3 +82,11 @@ Fashionism API designed exclusively for our internal team. Data access related t
 | [Multer](https://www.npmjs.com/package/multer) | Multer is a node.js middleware for handling multipart/form-data, which is primarily used for uploading files. |
 | [MySQL2](https://www.npmjs.com/package/mysql2) | MySQL client for Node.js with focus on performance. |
 | [Sequlize](https://www.npmjs.com/package/sequelize) | Sequelize is a promise-based Node.js ORM for Postgres, MySQL, MariaDB, SQLite and Microsoft SQL Server. |
+
+## Deployment
+
+ Tools | |
+| --- | --- |
+| [Google Compute Engine](https://cloud.google.com/compute) | e2-micro (2 vCPUs, 1 GB memory, 10 GB storage, Debian GNU/Linux 11 (bullseye)) |
+| [Google Cloud SQL](https://cloud.google.com/sql) | MySQL 5.7 |
+| [PM2](https://pm2.keymetrics.io/) | Advanced, production process manager for Node.js |
