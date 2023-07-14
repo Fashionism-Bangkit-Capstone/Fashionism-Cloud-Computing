@@ -2,10 +2,6 @@
 
 Fashionism API designed exclusively for our internal team. Data access related to product data, authentication, and much more. This documentation serves as a comprehensive guide for seamless integration and utilization of the Fashionism API in our internal applications.
 
-## API Documentation
-
-- [Here](http://34.101.42.179/api/v2/docs/)
-
 ## Features
 
 - [x] Authentication
