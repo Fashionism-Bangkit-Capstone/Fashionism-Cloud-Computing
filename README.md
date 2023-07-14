@@ -60,7 +60,7 @@ Fashionism API designed exclusively for our internal team. Data access related t
 ## Setup
 
 - clone this project **`git clone https://github.com/Fashionism-Bangkit-Capstone/Fashionism-Cloud-Computing.git`**
-- checkout to backend-rest-api branch **`git checkout backend-rest-api`**
+- checkout to backend-rest-api branch **`git checkout backend-rest-api-v2`**
 - open the project with your favorite IDE
 - install all dependencies **`npm install`**
 - copy **`.env.example`** to **`.env`** and fill the environment variables
